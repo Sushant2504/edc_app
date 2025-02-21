@@ -1,10 +1,13 @@
 import 'package:edc_app/models/startup_model.dart';
 import 'package:edc_app/utils/ui/app_theme.dart';
+import 'package:edc_app/widgets/event_card.dart';
+import 'package:edc_app/widgets/my_timeline_tile.dart';
 import 'package:edc_app/widgets/reusable.dart';
 import 'package:edc_app/widgets/startup_card.dart';
+import 'package:edc_app/widgets/year_card.dart';
 import 'package:flutter/material.dart';
-import 'package:timeline_tile/timeline_tile.dart';
 import 'package:edc_app/widgets/flutter_tinckercard_plus.dart';
+import '../models/timeline_model.dart';
 
 // currentIndex for the startup cards.....
 int currentIndex = 0;
@@ -26,6 +29,8 @@ final List<String> years = [
   "2023"
 ];
 
+var currentSelectedIndex = 0;
+
 // homescren of the edc application
 class HomeScreen extends StatefulWidget {
   @override
@@ -40,6 +45,30 @@ class _HomeScreenState extends State<HomeScreen> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
+      bottomNavigationBar: NavigationBar(
+            backgroundColor: const Color.fromARGB(255, 162, 80, 225),
+            onDestinationSelected: (index) {
+               currentSelectedIndex = index;
+               setState(() {});
+            },
+        
+            destinations: [
+                 NavigationDestination(icon: Icon(Icons.home), label: "Home"),
+                 NavigationDestination(icon: Icon(Icons.event), label: "Vishwapreneur"),
+                 NavigationDestination(icon: Icon(Icons.new_releases), label: "Newletter"),
+                 NavigationDestination(icon: Icon(Icons.person), label: "Contact Us"),
+                 
+            ],
+
+            surfaceTintColor: const Color.fromARGB(255, 97, 26, 127),
+            indicatorColor: const Color.fromARGB(255, 97, 26, 127),
+            // indicatorShape: ,
+            height: 70,
+            labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+            selectedIndex:  currentSelectedIndex,
+            
+        ),
+      
       body: Stack(
         children: [
           Container(
@@ -60,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 50,
                   ),
                   CircleAvatar(
-                    radius: 50,
+                    radius: 60,
                     backgroundColor: Colors.white,
                     child: Image.asset('assets/images/edc-logo.png'),
                   ),
@@ -96,6 +125,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  Container(
+                    width: width * 0.9,
+                    child: const Divider(color: Colors.white),
+                  ),
+                  const SizedBox(height: 20),
                   buildHeader("OUR VISION"),
                   const SizedBox(height: 10),
                   Container(
@@ -122,6 +156,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: const Divider(color: Colors.white),
                   ),
                   const SizedBox(height: 10),
+                  buildHeader("Latest Updates"),
+                  const SizedBox(height: 10),
+                  Container(
+                    width: width * 0.9,
+                    child: const Divider(color: Colors.white),
+                  ),
                   buildHeader("Our Startups"),
                   Center(
                     child: SizedBox(
@@ -133,15 +173,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         totalNum: startup.length,
                         stackNum: 3,
                         swipeEdge: 4.0,
-                        maxWidth: width * 0.92,
+                        maxWidth: width * 0.97,
                         maxHeight: height * 0.55,
                         minWidth: width * 0.80,
                         minHeight: height * 0.40,
                         cardBuilder: (context, index) {
-                        final cardIndex = (currentIndex + index) % startup.length;
-                        return Card(
-                          child: StartupCard(startup[cardIndex]),
-                        );
+                          final cardIndex =
+                              (currentIndex + index) % startup.length;
+                          return Card(
+                            child: StartupCard(startup[cardIndex]),
+                          );
                         },
                         cardController: controller = CardController(),
                         swipeUpdateCallback:
@@ -159,30 +200,183 @@ class _HomeScreenState extends State<HomeScreen> {
                             (CardSwipeOrientation orientation, int index) {
                           // Update the current index when a card is swiped
                           setState(() {
-                            currentIndex = (currentIndex + 1) % startup.length; // Loop back to 0 after the last card
+                            currentIndex = (currentIndex + 1) %
+                                startup
+                                    .length; // Loop back to 0 after the last card
                           });
                         },
                       ),
                     ),
                   ),
                   const SizedBox(height: 20),
-                  
-                  buildHeader("TImeLine"),
-
-                  const SizedBox(height: 10),
-
-                  
-
-                  TimelineTile(
-                    isFirst: true,
+                  Container(
+                    width: width * 0.9,
+                    child: const Divider(color: Colors.white),
                   ),
-                  TimelineTile(),
-                  TimelineTile(),
-                  TimelineTile(),
-                ],
+                  buildHeader("TimeLine"),
+                 
+                     Column(
+                          children: [
+                            //start timeline..
+                            MyTimelineTile(
+                              isFirst: true,
+                              isLast: false,
+                              isPast: false,
+                              isicon: Icons.done,
+                              isstart: YearCard(year: timelineData[0].year),
+                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
+                            ),
+                     
+                            //middle timeline...
+                            MyTimelineTile(
+                              isFirst: false,
+                              isLast: false,
+                              isPast: false,
+                              isicon: Icons.done,
+                              isstart: YearCard(year: timelineData[0].year),
+                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
+                            ),
+                     
+                            //middle timeline...
+                            MyTimelineTile(
+                              isFirst: false,
+                              isLast: false,
+                              isPast: false,
+                              isicon: Icons.done,
+                              isstart: YearCard(year: timelineData[0].year),
+                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
+                            ),
+                     
+                            //middle timeline...
+                            MyTimelineTile(
+                              isFirst: false,
+                              isLast: false,
+                              isPast: false,
+                              isicon: Icons.done,
+                              isstart: YearCard(year: timelineData[0].year),
+                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
+                            ),
+                     
+                            //middle timeline...
+                            MyTimelineTile(
+                              isFirst: false,
+                              isLast: false,
+                              isPast: false,
+                              isicon: Icons.done,
+                              isstart: YearCard(year: timelineData[0].year),
+                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
+                            ),
+                     
+                            //middle timeline...
+                            MyTimelineTile(
+                              isFirst: false,
+                              isLast: false,
+                              isPast: false,
+                              isicon: Icons.done,
+                              isstart: YearCard(year: timelineData[0].year),
+                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
+                            ),
+                     
+                            //middle timeline...
+                            MyTimelineTile(
+                              isFirst: false,
+                              isLast: false,
+                              isPast: false,
+                              isicon: Icons.done,
+                              isstart: YearCard(year: timelineData[0].year),
+                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
+                            ),
+                     
+                            //middle timeline...
+                            MyTimelineTile(
+                              isFirst: false,
+                              isLast: false,
+                              isPast: false,
+                              isicon: Icons.done,
+                              isstart: YearCard(year: timelineData[0].year),
+                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
+                            ),
+                     
+                            //middle timeline...
+                            MyTimelineTile(
+                              isFirst: false,
+                              isLast: false,
+                              isPast: false,
+                              isicon: Icons.done,
+                              isstart: YearCard(year: timelineData[0].year),
+                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
+                            ),
+                     
+                            //middle timeline...
+                            MyTimelineTile(
+                              isFirst: false,
+                              isLast: false,
+                              isPast: true,
+                              isicon: Icons.done,
+                              isstart: YearCard(year: timelineData[0].year),
+                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
+                            ),
+                     
+                            //middle timeline...
+                            MyTimelineTile(
+                              isFirst: false,
+                              isLast: false,
+                              isPast: true,
+                              isicon: Icons.done,
+                              isstart: YearCard(year: timelineData[0].year),
+                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
+                            ),
+                     
+                            //middle timeline...
+                            MyTimelineTile(
+                              isFirst: false,
+                              isLast: false,
+                              isPast: true,
+                              isicon: Icons.done,
+                              isstart: YearCard(year: timelineData[0].year),
+                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
+                            ),
+                     
+                            //middle timeline...
+                            MyTimelineTile(
+                              isFirst: false,
+                              isLast: false,
+                              isPast: true,
+                              isicon: Icons.done,
+                              isstart: YearCard(year: timelineData[0].year),
+                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
+                            ),
+                     
+                            //middle timeline...
+                            MyTimelineTile(
+                              isFirst: false,
+                              isLast: false,
+                              isPast: true,
+                              isicon: Icons.done,
+                              isstart: YearCard(year: timelineData[0].year),
+                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
+                            ),
+                     
+                            //middle timeline...
+                            MyTimelineTile(
+                              isFirst: false,
+                              isLast: true,
+                              isPast: true,
+                              isicon: Icons.done,
+                              isstart: YearCard(year: timelineData[0].year),
+                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
+                            ),
+                          ],
+                        ),
+
+                        SizedBox(width: 15),
+                   ],
+                 ),
+                  
+              
               ),
             ),
-          ),
+          
         ],
       ),
     );

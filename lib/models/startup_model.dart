@@ -49,6 +49,8 @@ final List<StartupModel> startup = [
     startupimage:
         ('https://res.cloudinary.com/dssr9wa3x/image/upload/v1707820723/edc/pllxgoe9oymykjaecudg.jpg'),
   ),
+
+  
   StartupModel(
     name: 'Aria',
     description:
