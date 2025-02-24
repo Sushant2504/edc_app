@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:navigation_design/widgets/sparkle.dart';
+import 'package:edc_app/widgets/sparkle.dart';
 
 class AnimatedBackground extends StatelessWidget {
   final Widget child;

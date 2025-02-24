@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:navigation_design/models/article.dart';
+import 'package:edc_app/models/article.dart';
 
 class ArticleCard extends StatefulWidget {
   final Article article;

@@ -1,4 +1,9 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:edc_app/models/startup_model.dart';
+import 'package:edc_app/screens/Vishwapreneur/intro_screen.dart';
+import 'package:edc_app/screens/contact_us_screen.dart';
+import 'package:edc_app/screens/newsletter_screen.dart';
+import 'package:edc_app/widgets/article_screen.dart';
 import 'package:edc_app/utils/ui/app_theme.dart';
 import 'package:edc_app/widgets/event_card.dart';
 import 'package:edc_app/widgets/my_timeline_tile.dart';
@@ -29,6 +34,25 @@ final List<String> years = [
   "2023"
 ];
 
+
+// bottom navbar items .....
+
+final items = <Widget>[
+    Icon(Icons.home, size: 40),
+    Icon(Icons.event, size: 40),
+    Icon(Icons.new_releases, size: 40,),
+    Icon(Icons.contact_emergency, size: 40,), 
+];
+
+
+final screens = [
+   HomeScreen(),
+   VPScreen(),
+   NewsletterScreen(),
+   ContactUsScreen(),
+];
+
+
 var currentSelectedIndex = 0;
 
 // homescren of the edc application
@@ -39,35 +63,28 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late CardController controller;
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      bottomNavigationBar: NavigationBar(
-            backgroundColor: const Color.fromARGB(255, 162, 80, 225),
-            onDestinationSelected: (index) {
-               currentSelectedIndex = index;
-               setState(() {});
-            },
-        
-            destinations: [
-                 NavigationDestination(icon: Icon(Icons.home), label: "Home"),
-                 NavigationDestination(icon: Icon(Icons.event), label: "Vishwapreneur"),
-                 NavigationDestination(icon: Icon(Icons.new_releases), label: "Newletter"),
-                 NavigationDestination(icon: Icon(Icons.person), label: "Contact Us"),
-                 
-            ],
-
-            surfaceTintColor: const Color.fromARGB(255, 97, 26, 127),
-            indicatorColor: const Color.fromARGB(255, 97, 26, 127),
-            // indicatorShape: ,
-            height: 70,
-            labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-            selectedIndex:  currentSelectedIndex,
-            
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+            iconTheme: IconThemeData(color: Color.fromARGB(255, 79, 29, 171)),
         ),
+        child: CurvedNavigationBar(
+           backgroundColor: Colors.blue,
+           height: 70,
+          
+           animationCurve: Curves.easeInOut,
+           animationDuration: Duration(milliseconds: 300),
+           index: index,
+           items: items,
+           onTap: (index) => setState(() => this.index = index),
+        ),
+      ),
       
       body: Stack(
         children: [

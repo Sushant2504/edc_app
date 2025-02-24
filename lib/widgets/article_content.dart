@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:navigation_design/widgets/gradient_container.dart';
+import 'package:edc_app/widgets/gradient_container.dart';
 
 class ArticleContent extends StatelessWidget {
   final String content;

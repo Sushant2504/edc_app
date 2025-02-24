@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:navigation_design/models/article.dart';
+import 'package:edc_app/models/article.dart';
 
 class ArticleHeader extends StatelessWidget {
   final Article article;
