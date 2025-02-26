@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 
 //subtitle data ...
-
 List<List<String>> SubtitleData = [
     [
       'Launch the first edition of expressionism, Our Newsletter.',
@@ -92,6 +91,6 @@ List<TimelineModel> timelineData = [
      TimelineModel(year: 2020, Title: ["Vishwapreneur'20"], Subtitle: SubtitleData[9]),
      TimelineModel(year: 2021, Title: ["Excelsior"], Subtitle: SubtitleData[10]),
      TimelineModel(year: 2022, Title: ["Vishwapreneur'22"], Subtitle: SubtitleData[11]),
-     TimelineModel(year: 2023, Title: ["Agnitio", 'E-cell Meetup'], Subtitle: SubtitleData[11]),
-     TimelineModel(year: 2024, Title: ["Agnitio", 'E-cell Meetup'], Subtitle: SubtitleData[11]),
+     TimelineModel(year: 2023, Title: ["Agnitio", 'E-cell Meetup'], Subtitle: SubtitleData[12]),
+     TimelineModel(year: 2024, Title: ["CorpStrata", 'E-cell Meetup'], Subtitle: SubtitleData[13]),
 ];

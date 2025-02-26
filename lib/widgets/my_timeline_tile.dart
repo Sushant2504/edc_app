@@ -22,7 +22,7 @@ class MyTimelineTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 180,
+      height: 250,
       child: TimelineTile(
         alignment: TimelineAlign.center,
         isFirst: isFirst,

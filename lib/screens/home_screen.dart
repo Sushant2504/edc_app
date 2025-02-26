@@ -34,24 +34,27 @@ final List<String> years = [
   "2023"
 ];
 
-
 // bottom navbar items .....
 
 final items = <Widget>[
-    Icon(Icons.home, size: 40),
-    Icon(Icons.event, size: 40),
-    Icon(Icons.new_releases, size: 40,),
-    Icon(Icons.contact_emergency, size: 40,), 
+  Icon(Icons.home, size: 40),
+  Icon(Icons.event, size: 40),
+  Icon(
+    Icons.new_releases,
+    size: 40,
+  ),
+  Icon(
+    Icons.contact_emergency,
+    size: 40,
+  ),
 ];
-
 
 final screens = [
-   HomeScreen(),
-   VPScreen(),
-   NewsletterScreen(),
-   ContactUsScreen(),
+  HomeScreen(),
+  VPScreen(),
+  NewsletterScreen(),
+  ContactUsScreen(),
 ];
-
 
 var currentSelectedIndex = 0;
 
@@ -61,7 +64,21 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
+// class _HomeScreenState extends State<HomeScreen> {
+//      int index = 0;
+//      final navigationKey = GlobalKey<CurvedNavigationBarState>();
+     
+//      return Scaffold(
+//           //  body: 
+//      );
+
+// }
+
+
+
+
 class _HomeScreenState extends State<HomeScreen> {
+  final navigationKey = GlobalKey<CurvedNavigationBarState>();
   late CardController controller;
   int index = 0;
 
@@ -72,20 +89,21 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
-            iconTheme: IconThemeData(color: Color.fromARGB(255, 79, 29, 171)),
+          iconTheme: IconThemeData(color: Color.fromARGB(255, 165, 144, 229)),
         ),
         child: CurvedNavigationBar(
-           backgroundColor: Colors.blue,
-           height: 70,
-          
-           animationCurve: Curves.easeInOut,
-           animationDuration: Duration(milliseconds: 300),
-           index: index,
-           items: items,
-           onTap: (index) => setState(() => this.index = index),
+          key: navigationKey,
+          backgroundColor: Color.fromARGB(255, 165, 144, 229),
+          //  buttonBackgroundColor: Colors.,
+          color: const Color.fromARGB(255, 28, 2, 26),
+          height: 60,
+          animationCurve: Curves.easeInOut,
+          animationDuration: Duration(milliseconds: 300),
+          index: index,
+          items: items,
+          onTap: (index) => setState(() => this.index = index),
         ),
       ),
-      
       body: Stack(
         children: [
           Container(
@@ -93,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
             width: width,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/rocket-bg.png'),
+                image: AssetImage('assets/images/bg-theme.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -116,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   buildHeader(
                     "ENTREPRENEURSHIP DEVELOPMENT CELL, VIIT",
                   ),
-                  Container(
+                  Container(  
                     width: width * 0.9,
                     child: const Divider(color: Colors.white),
                   ),
@@ -231,169 +249,212 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: const Divider(color: Colors.white),
                   ),
                   buildHeader("TimeLine"),
-                 
-                     Column(
-                          children: [
-                            //start timeline..
-                            MyTimelineTile(
-                              isFirst: true,
-                              isLast: false,
-                              isPast: false,
-                              isicon: Icons.done,
-                              isstart: YearCard(year: timelineData[0].year),
-                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
-                            ),
-                     
-                            //middle timeline...
-                            MyTimelineTile(
-                              isFirst: false,
-                              isLast: false,
-                              isPast: false,
-                              isicon: Icons.done,
-                              isstart: YearCard(year: timelineData[0].year),
-                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
-                            ),
-                     
-                            //middle timeline...
-                            MyTimelineTile(
-                              isFirst: false,
-                              isLast: false,
-                              isPast: false,
-                              isicon: Icons.done,
-                              isstart: YearCard(year: timelineData[0].year),
-                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
-                            ),
-                     
-                            //middle timeline...
-                            MyTimelineTile(
-                              isFirst: false,
-                              isLast: false,
-                              isPast: false,
-                              isicon: Icons.done,
-                              isstart: YearCard(year: timelineData[0].year),
-                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
-                            ),
-                     
-                            //middle timeline...
-                            MyTimelineTile(
-                              isFirst: false,
-                              isLast: false,
-                              isPast: false,
-                              isicon: Icons.done,
-                              isstart: YearCard(year: timelineData[0].year),
-                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
-                            ),
-                     
-                            //middle timeline...
-                            MyTimelineTile(
-                              isFirst: false,
-                              isLast: false,
-                              isPast: false,
-                              isicon: Icons.done,
-                              isstart: YearCard(year: timelineData[0].year),
-                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
-                            ),
-                     
-                            //middle timeline...
-                            MyTimelineTile(
-                              isFirst: false,
-                              isLast: false,
-                              isPast: false,
-                              isicon: Icons.done,
-                              isstart: YearCard(year: timelineData[0].year),
-                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
-                            ),
-                     
-                            //middle timeline...
-                            MyTimelineTile(
-                              isFirst: false,
-                              isLast: false,
-                              isPast: false,
-                              isicon: Icons.done,
-                              isstart: YearCard(year: timelineData[0].year),
-                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
-                            ),
-                     
-                            //middle timeline...
-                            MyTimelineTile(
-                              isFirst: false,
-                              isLast: false,
-                              isPast: false,
-                              isicon: Icons.done,
-                              isstart: YearCard(year: timelineData[0].year),
-                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
-                            ),
-                     
-                            //middle timeline...
-                            MyTimelineTile(
-                              isFirst: false,
-                              isLast: false,
-                              isPast: true,
-                              isicon: Icons.done,
-                              isstart: YearCard(year: timelineData[0].year),
-                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
-                            ),
-                     
-                            //middle timeline...
-                            MyTimelineTile(
-                              isFirst: false,
-                              isLast: false,
-                              isPast: true,
-                              isicon: Icons.done,
-                              isstart: YearCard(year: timelineData[0].year),
-                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
-                            ),
-                     
-                            //middle timeline...
-                            MyTimelineTile(
-                              isFirst: false,
-                              isLast: false,
-                              isPast: true,
-                              isicon: Icons.done,
-                              isstart: YearCard(year: timelineData[0].year),
-                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
-                            ),
-                     
-                            //middle timeline...
-                            MyTimelineTile(
-                              isFirst: false,
-                              isLast: false,
-                              isPast: true,
-                              isicon: Icons.done,
-                              isstart: YearCard(year: timelineData[0].year),
-                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
-                            ),
-                     
-                            //middle timeline...
-                            MyTimelineTile(
-                              isFirst: false,
-                              isLast: false,
-                              isPast: true,
-                              isicon: Icons.done,
-                              isstart: YearCard(year: timelineData[0].year),
-                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
-                            ),
-                     
-                            //middle timeline...
-                            MyTimelineTile(
-                              isFirst: false,
-                              isLast: true,
-                              isPast: true,
-                              isicon: Icons.done,
-                              isstart: YearCard(year: timelineData[0].year),
-                              isend: EventCard(Title: timelineData[0].Title, Subtitle: timelineData[0].Subtitle),
-                            ),
-                          ],
+                  Column(
+                    children: [
+                      //start timeline..
+                      MyTimelineTile(
+                        isFirst: true,
+                        isLast: false,
+                        isPast: false,
+                        isicon: Icons.done,
+                        isstart: YearCard(year: timelineData[0].year),
+                        isend: EventCard(
+                          Title: timelineData[0].Title,
+                          Subtitle: timelineData[0].Subtitle,
+                          total: timelineData[0].Title.length,
                         ),
+                      ),
 
-                        SizedBox(width: 15),
-                   ],
-                 ),
-                  
-              
+                      //middle timeline...
+                      MyTimelineTile(
+                        isFirst: false,
+                        isLast: false,
+                        isPast: false,
+                        isicon: Icons.done,
+                        isstart: YearCard(year: timelineData[1].year),
+                        isend: EventCard(
+                          Title: timelineData[1].Title,
+                          Subtitle: timelineData[1].Subtitle,
+                          total: timelineData[1].Title.length,
+                        ),
+                      ),
+
+                      //middle timeline...
+                      MyTimelineTile(
+                        isFirst: false,
+                        isLast: false,
+                        isPast: false,
+                        isicon: Icons.done,
+                        isstart: YearCard(year: timelineData[2].year),
+                        isend: EventCard(
+                          Title: timelineData[2].Title,
+                          Subtitle: timelineData[2].Subtitle,
+                          total: timelineData[2].Title.length,
+                        ),
+                      ),
+
+                      //middle timeline...
+                      MyTimelineTile(
+                        isFirst: false,
+                        isLast: false,
+                        isPast: false,
+                        isicon: Icons.done,
+                        isstart: YearCard(year: timelineData[3].year),
+                        isend: EventCard(
+                          Title: timelineData[3].Title,
+                          Subtitle: timelineData[3].Subtitle,
+                          total: timelineData[3].Title.length,
+                        ),
+                      ),
+
+                      //middle timeline...
+                      MyTimelineTile(
+                        isFirst: false,
+                        isLast: false,
+                        isPast: false,
+                        isicon: Icons.done,
+                        isstart: YearCard(year: timelineData[4].year),
+                        isend: EventCard(
+                          Title: timelineData[4].Title,
+                          Subtitle: timelineData[4].Subtitle,
+                          total: timelineData[4].Title.length,
+                        ),
+                      ),
+
+                      //middle timeline...
+                      MyTimelineTile(
+                        isFirst: false,
+                        isLast: false,
+                        isPast: false,
+                        isicon: Icons.done,
+                        isstart: YearCard(year: timelineData[5].year),
+                        isend: EventCard(
+                          Title: timelineData[5].Title,
+                          Subtitle: timelineData[5].Subtitle,
+                          total: timelineData[5].Title.length,
+                        ),
+                      ),
+
+                      //middle timeline...
+                      MyTimelineTile(
+                        isFirst: false,
+                        isLast: false,
+                        isPast: false,
+                        isicon: Icons.done,
+                        isstart: YearCard(year: timelineData[6].year),
+                        isend: EventCard(
+                          Title: timelineData[6].Title,
+                          Subtitle: timelineData[6].Subtitle,
+                          total: timelineData[6].Title.length,
+                        ),
+                      ),
+
+                      //middle timeline...
+                      MyTimelineTile(
+                        isFirst: false,
+                        isLast: false,
+                        isPast: false,
+                        isicon: Icons.done,
+                        isstart: YearCard(year: timelineData[7].year),
+                        isend: EventCard(
+                          Title: timelineData[7].Title,
+                          Subtitle: timelineData[7].Subtitle,
+                          total: timelineData[7].Title.length,
+                        ),
+                      ),
+
+                      //middle timeline...
+                      MyTimelineTile(
+                        isFirst: false,
+                        isLast: false,
+                        isPast: false,
+                        isicon: Icons.done,
+                        isstart: YearCard(year: timelineData[8].year),
+                        isend: EventCard(
+                          Title: timelineData[8].Title,
+                          Subtitle: timelineData[8].Subtitle,
+                          total: timelineData[8].Title.length,
+                        ),
+                      ),
+
+                      //middle timeline...
+                      MyTimelineTile(
+                        isFirst: false,
+                        isLast: false,
+                        isPast: true,
+                        isicon: Icons.done,
+                        isstart: YearCard(year: timelineData[9].year),
+                        isend: EventCard(
+                          Title: timelineData[9].Title,
+                          Subtitle: timelineData[9].Subtitle,
+                          total: timelineData[9].Title.length,
+                        ),
+                      ),
+
+                      //middle timeline...
+                      MyTimelineTile(
+                        isFirst: false,
+                        isLast: false,
+                        isPast: true,
+                        isicon: Icons.done,
+                        isstart: YearCard(year: timelineData[10].year),
+                        isend: EventCard(
+                          Title: timelineData[10].Title,
+                          Subtitle: timelineData[10].Subtitle,
+                          total: timelineData[10].Title.length,
+                        ),
+                      ),
+
+                      //middle timeline...
+                      MyTimelineTile(
+                        isFirst: false,
+                        isLast: false,
+                        isPast: true,
+                        isicon: Icons.done,
+                        isstart: YearCard(year: timelineData[11].year),
+                        isend: EventCard(
+                          Title: timelineData[11].Title,
+                          Subtitle: timelineData[11].Subtitle,
+                          total: timelineData[11].Title.length,
+                        ),
+                      ),
+
+                      //middle timeline...
+                      MyTimelineTile(
+                        isFirst: false,
+                        isLast: false,
+                        isPast: true,
+                        isicon: Icons.done,
+                        isstart: YearCard(year: timelineData[12].year),
+                        isend: EventCard(
+                          Title: timelineData[12].Title,
+                          Subtitle: timelineData[12].Subtitle,
+                          total: timelineData[12].Title.length,
+                        ),
+                      ),
+
+                      //middle timeline...
+                      MyTimelineTile(
+                        isFirst: false,
+                        isLast: true,
+                        isPast: true,
+                        isicon: Icons.done,
+                        isstart: YearCard(year: timelineData[13].year),
+                        isend: EventCard(
+                          Title: timelineData[13].Title,
+                          Subtitle: timelineData[13].Subtitle,
+                          total: timelineData[13].Title.length,
+                        ),
+                      ),
+
+                      
+                    ],
+                  ),
+                  SizedBox(width: 15),
+                ],
               ),
             ),
-          
+          ),
         ],
       ),
     );
