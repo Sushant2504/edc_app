@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: _screens[_currentIndex],
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Color(0xFF3A2757),
         height: 70,
         animationCurve: Curves.easeInOut,
         animationDuration: Duration(milliseconds: 300),
@@ -65,11 +65,21 @@ class HomeContentScreen extends StatelessWidget {
           height: height,
           width: width,
           decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/rocket-bg.png'),
-              fit: BoxFit.cover,
-            ),
-          ),
+  image: DecorationImage(
+    image: AssetImage('assets/images/rocket-bg.png'),
+    fit: BoxFit.cover,
+    colorFilter: ColorFilter.mode(
+      Colors.white.withOpacity(0.9), // Adjust opacity here (0.0 - 1.0)
+      BlendMode.dstATop, // Ensures the overlay blends correctly
+    ),
+  ),
+),
+          // decoration: BoxDecoration(
+          //   image: DecorationImage(
+          //     image: AssetImage('assets/images/rocket-bg.png'),
+          //     fit: BoxFit.cover,
+          //   ),
+          // ),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -116,14 +126,17 @@ class HomeContentScreen extends StatelessWidget {
 
   /// Builds a simple styled header text
   Widget buildHeader(String text) {
-    return Text(
-      text,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 22,
-        fontWeight: FontWeight.bold,
+    return Container(
+      color: Colors.transparent,
+      child: Text(
+        text,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
+        textAlign: TextAlign.center,
       ),
-      textAlign: TextAlign.center,
     );
   }
 

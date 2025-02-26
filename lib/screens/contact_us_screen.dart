@@ -38,8 +38,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
     double buttonHeight = 50.0; // Fixed button height
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 45, 1, 63),
+      backgroundColor: Colors.white,
       body: Stack(
+        
         children: [
           SingleChildScrollView(
             child: Column(

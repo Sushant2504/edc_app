@@ -3,10 +3,51 @@ import 'package:flutter/material.dart';
 class Appthemes {
   //------------------------- theme for text background --------------------------//
   static final Decoration ktextBackground = BoxDecoration(
+  gradient: LinearGradient(
+    colors: [
+      Color(0xFF0F0F0F), // Dark grayish-black
+      Color(0xFF1A1A2E), // Deep blue-black
+      Color(0xFF3A2757),
+            Color(0xFF9B4A60),
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  ),
+  borderRadius: BorderRadius.circular(12),
+  boxShadow: [
+    BoxShadow(
+      color: Colors.black.withOpacity(0.4),
+      blurRadius: 6,
+      spreadRadius: 2,
+      offset: Offset(0, 4),
+    ),
+    BoxShadow(
+      color: Colors.blue.withOpacity(0.2), // Soft blue glow effect
+      blurRadius: 8,
+      spreadRadius: 3,
+      offset: Offset(0, 6),
+    ),
+  ],
+);
+
+
+  //------------------------ eventcard theme -------------------------------//
+
+  static final Decoration keventCard = BoxDecoration(
+  border: Border.all(
+    color: Colors.white,
+    width: 1.0,
+    style: BorderStyle.solid,
+    strokeAlign: BorderSide.strokeAlignInside,
+  ),
     gradient: LinearGradient(
       colors: [
-        Color.fromARGB(255, 55, 16, 105),
-        Color.fromARGB(255, 136, 90, 230)
+           Color(0xFF171022),
+      Color(0xFF3A2757),
+            Color(0xFF9B4A60),
+       Color(0xFFF56F6C),
+
+       
       ],
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -21,43 +62,47 @@ class Appthemes {
     ],
   );
 
-  //------------------------ eventcard theme -------------------------------//
+  //------------------------ year card theme -------------------------------//
 
-  static final Decoration keventCard = BoxDecoration(
+  static final Decoration kyearCard = BoxDecoration(
+    
     gradient: LinearGradient(
       colors: [
-        Color.fromARGB(255, 109, 49, 186),
-        Color.fromARGB(255, 211, 197, 239),
+        // Color.fromARGB(255, 109, 49, 186),
+        // Color.fromARGB(255, 211, 197, 239),
+         Color(0xFF171022),
+      Color(0xFF000000),
+            Color(0xFF000000),
+       Color(0xFF000000),
+
+       
       ],
     ),
-    borderRadius: BorderRadius.circular(10),
+    // borderRadius: BorderRadius.circular(20),
+     borderRadius: BorderRadius.circular(10),
     boxShadow: [
       BoxShadow(
-        color: Colors.black.withOpacity(0.3),
+        color: Colors.white.withOpacity(0.3),
         spreadRadius: 2,
         offset: Offset(0, 2),
       )
     ],
   );
 
-  //------------------------ year card theme -------------------------------//
-
-  static final Decoration kyearCard = BoxDecoration(
-    gradient: LinearGradient(
-      colors: [
-        Color.fromARGB(255, 109, 49, 186),
-        Color.fromARGB(255, 211, 197, 239),
-      ],
-    ),
-    borderRadius: BorderRadius.circular(20),
-  );
-
   //------------------------ event theme -------------------------------//
 
   static final Decoration keventTheme = BoxDecoration(
     gradient: LinearGradient(colors: [
-      Color.fromARGB(255, 55, 16, 105),
-      Color.fromARGB(255, 136, 90, 230)
+      Color(0xFF171022),
+      Color(0xFF3A2757),
+            Color(0xFF9B4A60),
+       Color(0xFFF56F6C),
+
+       
+
+        // Color.fromARGB(255, 211, 197, 239),
+      // Color.fromARGB(255, 55, 16, 105),
+      // Color.fromARGB(255, 136, 90, 230)
     ]),
     borderRadius: BorderRadius.circular(10.0),
   );

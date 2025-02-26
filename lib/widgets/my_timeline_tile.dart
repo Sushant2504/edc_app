@@ -32,7 +32,7 @@ class MyTimelineTile extends StatelessWidget {
 
         indicatorStyle: IndicatorStyle(
           width: 25,
-          color: Colors.deepPurple,
+          color: Colors.black,
           iconStyle: IconStyle(
             iconData: isicon,
             color: Colors.white,
