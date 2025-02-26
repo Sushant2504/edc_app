@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-
-
 class AppStyles {
-
     //---------------------Title Text Styles --------------------//
     static final TextStyle ktitleStyle = TextStyle(
        fontSize: 22,
        fontWeight: FontWeight.bold,
        color: Colors.white,
     );
-
     //---------------------Subtitle Text Styles ------------------------//
     static final TextStyle ksubtitleStyle = TextStyle(
        fontSize: 14,
@@ -17,6 +13,4 @@ class AppStyles {
        color: Colors.white,
        fontFamily: 'Poppins',
     );
-
-
 }
