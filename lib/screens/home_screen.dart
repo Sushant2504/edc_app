@@ -1,461 +1,270 @@
+import 'package:edc_app/models/timeline_model.dart';
+import 'package:edc_app/screens/Vishwapreneur/navigation.dart';
+import 'package:edc_app/widgets/flutter_tinckercard_plus.dart';
+import 'package:edc_app/widgets/startupcard_widget.dart';
+import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:edc_app/models/startup_model.dart';
 import 'package:edc_app/screens/Vishwapreneur/intro_screen.dart';
 import 'package:edc_app/screens/contact_us_screen.dart';
 import 'package:edc_app/screens/newsletter_screen.dart';
-import 'package:edc_app/widgets/article_screen.dart';
 import 'package:edc_app/utils/ui/app_theme.dart';
-import 'package:edc_app/widgets/event_card.dart';
-import 'package:edc_app/widgets/my_timeline_tile.dart';
-import 'package:edc_app/widgets/reusable.dart';
 import 'package:edc_app/widgets/startup_card.dart';
+import 'package:edc_app/models/startup_model.dart';
+import 'package:edc_app/widgets/my_timeline_tile.dart';
 import 'package:edc_app/widgets/year_card.dart';
-import 'package:flutter/material.dart';
-import 'package:edc_app/widgets/flutter_tinckercard_plus.dart';
-import '../models/timeline_model.dart';
+import 'package:edc_app/widgets/event_card.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
-// currentIndex for the startup cards.....
-int currentIndex = 0;
+bool _onSwipe(
+  int previousIndex,
+  int? currentIndex,
+  CardSwiperDirection direction,
+) {
+  debugPrint(
+    'The card $previousIndex was swiped to the ${direction.name}. Now the card $currentIndex is on top',
+  );
+  return true;
+}
 
-// list of the years for the timeline  purpose
-final List<String> years = [
-  "2008",
-  "2012",
-  "2013",
-  "2014",
-  "2015",
-  "2016",
-  "2017",
-  "2018",
-  "2019",
-  "2020",
-  "2021",
-  "2022",
-  "2023"
-];
+bool _onUndo(
+  int? previousIndex,
+  int currentIndex,
+  CardSwiperDirection direction,
+) {
+  debugPrint(
+    'The card $currentIndex was undod from the ${direction.name}',
+  );
+  return true;
+}
 
-// bottom navbar items .....
-
-final items = <Widget>[
-  Icon(Icons.home, size: 40),
-  Icon(Icons.event, size: 40),
-  Icon(
-    Icons.new_releases,
-    size: 40,
-  ),
-  Icon(
-    Icons.contact_emergency,
-    size: 40,
-  ),
-];
-
-final screens = [
-  HomeScreen(),
-  VPScreen(),
-  NewsletterScreen(),
-  ContactUsScreen(),
-];
-
-var currentSelectedIndex = 0;
-
-// homescren of the edc application
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-// class _HomeScreenState extends State<HomeScreen> {
-//      int index = 0;
-//      final navigationKey = GlobalKey<CurvedNavigationBarState>();
-     
-//      return Scaffold(
-//           //  body: 
-//      );
-
-// }
-
-
-
-
 class _HomeScreenState extends State<HomeScreen> {
-  final navigationKey = GlobalKey<CurvedNavigationBarState>();
-  late CardController controller;
-  int index = 0;
+  int _currentIndex = 0;
+  
+
+
+  final List<Widget> _screens = [
+    HomeContentScreen(), // New widget to separate Home UI from Navigation handling
+    const Navigation(),
+    NewsletterScreen(),
+    ContactUsScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _screens[_currentIndex],
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Color(0xFF3A2757),
+        height: 70,
+        animationCurve: Curves.easeInOut,
+        animationDuration: Duration(milliseconds: 300),
+        index: _currentIndex,
+        items: [
+          Icon(Icons.home, size: 40),
+          Icon(Icons.event, size: 40),
+          Icon(Icons.new_releases, size: 40),
+          Icon(Icons.contact_emergency, size: 40),
+        ],
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      ),
+    );
+  }
+}
+
+class HomeContentScreen extends StatelessWidget {
+  final CardSwiperController controller = CardSwiperController();
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-          iconTheme: IconThemeData(color: Color.fromARGB(255, 165, 144, 229)),
-        ),
-        child: CurvedNavigationBar(
-          key: navigationKey,
-          backgroundColor: Color.fromARGB(255, 165, 144, 229),
-          //  buttonBackgroundColor: Colors.,
-          color: const Color.fromARGB(255, 28, 2, 26),
-          height: 60,
-          animationCurve: Curves.easeInOut,
-          animationDuration: Duration(milliseconds: 300),
-          index: index,
-          items: items,
-          onTap: (index) => setState(() => this.index = index),
-        ),
-      ),
-      body: Stack(
-        children: [
-          Container(
-            height: height,
-            width: width,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/bg-theme.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  CircleAvatar(
-                    radius: 60,
-                    backgroundColor: Colors.white,
-                    child: Image.asset('assets/images/edc-logo.png'),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  buildHeader(
-                    "ENTREPRENEURSHIP DEVELOPMENT CELL, VIIT",
-                  ),
-                  Container(  
-                    width: width * 0.9,
-                    child: const Divider(color: Colors.white),
-                  ),
-                  const SizedBox(height: 20),
-                  buildHeader("WHAT MAKES US EDC"),
-                  const SizedBox(height: 20),
-                  Container(
-                    height: height * 0.2,
-                    width: width * 0.95,
-                    decoration: Appthemes.ktextBackground,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        "The Entrepreneurship Development Cell (EDC) empowers students by bridging academia with industry, fostering entrepreneurship and providing hands-on experience to convert ideas into successful ventures.",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.normal,
-                          fontStyle: FontStyle.normal,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Container(
-                    width: width * 0.9,
-                    child: const Divider(color: Colors.white),
-                  ),
-                  const SizedBox(height: 20),
-                  buildHeader("OUR VISION"),
-                  const SizedBox(height: 10),
-                  Container(
-                    height: height * 0.17,
-                    width: width * 0.95,
-                    decoration: Appthemes.ktextBackground,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: const Text(
-                        """The Entrepreneurship Development Cell fosters innovation and cultivates business skills among students, aiming to drive economic growth and contribute to societal progress.""",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.normal,
-                          fontStyle: FontStyle.normal,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Container(
-                    width: width * 0.9,
-                    child: const Divider(color: Colors.white),
-                  ),
-                  const SizedBox(height: 10),
-                  buildHeader("Latest Updates"),
-                  const SizedBox(height: 10),
-                  Container(
-                    width: width * 0.9,
-                    child: const Divider(color: Colors.white),
-                  ),
-                  buildHeader("Our Startups"),
-                  Center(
-                    child: SizedBox(
-                      height: height * 0.55,
-                      child: TinderSwapCard(
-                        swipeUp: true,
-                        swipeDown: true,
-                        orientation: AmassOrientation.bottom,
-                        totalNum: startup.length,
-                        stackNum: 3,
-                        swipeEdge: 4.0,
-                        maxWidth: width * 0.97,
-                        maxHeight: height * 0.55,
-                        minWidth: width * 0.80,
-                        minHeight: height * 0.40,
-                        cardBuilder: (context, index) {
-                          final cardIndex =
-                              (currentIndex + index) % startup.length;
-                          return Card(
-                            child: StartupCard(startup[cardIndex]),
-                          );
-                        },
-                        cardController: controller = CardController(),
-                        swipeUpdateCallback:
-                            (DragUpdateDetails details, Alignment align) {
-                          /// Get swiping card's alignment
-                          if (align.x < 0) {
-                            //Card is LEFT swiping
-                            print("right swipe");
-                          } else if (align.x > 0) {
-                            //Card is RIGHT swiping
-                            print("left swipe");
-                          }
-                        },
-                        swipeCompleteCallback:
-                            (CardSwipeOrientation orientation, int index) {
-                          // Update the current index when a card is swiped
-                          setState(() {
-                            currentIndex = (currentIndex + 1) %
-                                startup
-                                    .length; // Loop back to 0 after the last card
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Container(
-                    width: width * 0.9,
-                    child: const Divider(color: Colors.white),
-                  ),
-                  buildHeader("TimeLine"),
-                  Column(
-                    children: [
-                      //start timeline..
-                      MyTimelineTile(
-                        isFirst: true,
-                        isLast: false,
-                        isPast: false,
-                        isicon: Icons.done,
-                        isstart: YearCard(year: timelineData[0].year),
-                        isend: EventCard(
-                          Title: timelineData[0].Title,
-                          Subtitle: timelineData[0].Subtitle,
-                          total: timelineData[0].Title.length,
-                        ),
-                      ),
 
-                      //middle timeline...
-                      MyTimelineTile(
-                        isFirst: false,
-                        isLast: false,
-                        isPast: false,
-                        isicon: Icons.done,
-                        isstart: YearCard(year: timelineData[1].year),
-                        isend: EventCard(
-                          Title: timelineData[1].Title,
-                          Subtitle: timelineData[1].Subtitle,
-                          total: timelineData[1].Title.length,
-                        ),
-                      ),
-
-                      //middle timeline...
-                      MyTimelineTile(
-                        isFirst: false,
-                        isLast: false,
-                        isPast: false,
-                        isicon: Icons.done,
-                        isstart: YearCard(year: timelineData[2].year),
-                        isend: EventCard(
-                          Title: timelineData[2].Title,
-                          Subtitle: timelineData[2].Subtitle,
-                          total: timelineData[2].Title.length,
-                        ),
-                      ),
-
-                      //middle timeline...
-                      MyTimelineTile(
-                        isFirst: false,
-                        isLast: false,
-                        isPast: false,
-                        isicon: Icons.done,
-                        isstart: YearCard(year: timelineData[3].year),
-                        isend: EventCard(
-                          Title: timelineData[3].Title,
-                          Subtitle: timelineData[3].Subtitle,
-                          total: timelineData[3].Title.length,
-                        ),
-                      ),
-
-                      //middle timeline...
-                      MyTimelineTile(
-                        isFirst: false,
-                        isLast: false,
-                        isPast: false,
-                        isicon: Icons.done,
-                        isstart: YearCard(year: timelineData[4].year),
-                        isend: EventCard(
-                          Title: timelineData[4].Title,
-                          Subtitle: timelineData[4].Subtitle,
-                          total: timelineData[4].Title.length,
-                        ),
-                      ),
-
-                      //middle timeline...
-                      MyTimelineTile(
-                        isFirst: false,
-                        isLast: false,
-                        isPast: false,
-                        isicon: Icons.done,
-                        isstart: YearCard(year: timelineData[5].year),
-                        isend: EventCard(
-                          Title: timelineData[5].Title,
-                          Subtitle: timelineData[5].Subtitle,
-                          total: timelineData[5].Title.length,
-                        ),
-                      ),
-
-                      //middle timeline...
-                      MyTimelineTile(
-                        isFirst: false,
-                        isLast: false,
-                        isPast: false,
-                        isicon: Icons.done,
-                        isstart: YearCard(year: timelineData[6].year),
-                        isend: EventCard(
-                          Title: timelineData[6].Title,
-                          Subtitle: timelineData[6].Subtitle,
-                          total: timelineData[6].Title.length,
-                        ),
-                      ),
-
-                      //middle timeline...
-                      MyTimelineTile(
-                        isFirst: false,
-                        isLast: false,
-                        isPast: false,
-                        isicon: Icons.done,
-                        isstart: YearCard(year: timelineData[7].year),
-                        isend: EventCard(
-                          Title: timelineData[7].Title,
-                          Subtitle: timelineData[7].Subtitle,
-                          total: timelineData[7].Title.length,
-                        ),
-                      ),
-
-                      //middle timeline...
-                      MyTimelineTile(
-                        isFirst: false,
-                        isLast: false,
-                        isPast: false,
-                        isicon: Icons.done,
-                        isstart: YearCard(year: timelineData[8].year),
-                        isend: EventCard(
-                          Title: timelineData[8].Title,
-                          Subtitle: timelineData[8].Subtitle,
-                          total: timelineData[8].Title.length,
-                        ),
-                      ),
-
-                      //middle timeline...
-                      MyTimelineTile(
-                        isFirst: false,
-                        isLast: false,
-                        isPast: true,
-                        isicon: Icons.done,
-                        isstart: YearCard(year: timelineData[9].year),
-                        isend: EventCard(
-                          Title: timelineData[9].Title,
-                          Subtitle: timelineData[9].Subtitle,
-                          total: timelineData[9].Title.length,
-                        ),
-                      ),
-
-                      //middle timeline...
-                      MyTimelineTile(
-                        isFirst: false,
-                        isLast: false,
-                        isPast: true,
-                        isicon: Icons.done,
-                        isstart: YearCard(year: timelineData[10].year),
-                        isend: EventCard(
-                          Title: timelineData[10].Title,
-                          Subtitle: timelineData[10].Subtitle,
-                          total: timelineData[10].Title.length,
-                        ),
-                      ),
-
-                      //middle timeline...
-                      MyTimelineTile(
-                        isFirst: false,
-                        isLast: false,
-                        isPast: true,
-                        isicon: Icons.done,
-                        isstart: YearCard(year: timelineData[11].year),
-                        isend: EventCard(
-                          Title: timelineData[11].Title,
-                          Subtitle: timelineData[11].Subtitle,
-                          total: timelineData[11].Title.length,
-                        ),
-                      ),
-
-                      //middle timeline...
-                      MyTimelineTile(
-                        isFirst: false,
-                        isLast: false,
-                        isPast: true,
-                        isicon: Icons.done,
-                        isstart: YearCard(year: timelineData[12].year),
-                        isend: EventCard(
-                          Title: timelineData[12].Title,
-                          Subtitle: timelineData[12].Subtitle,
-                          total: timelineData[12].Title.length,
-                        ),
-                      ),
-
-                      //middle timeline...
-                      MyTimelineTile(
-                        isFirst: false,
-                        isLast: true,
-                        isPast: true,
-                        isicon: Icons.done,
-                        isstart: YearCard(year: timelineData[13].year),
-                        isend: EventCard(
-                          Title: timelineData[13].Title,
-                          Subtitle: timelineData[13].Subtitle,
-                          total: timelineData[13].Title.length,
-                        ),
-                      ),
-
-                      
-                    ],
-                  ),
-                  SizedBox(width: 15),
-                ],
+    return Stack(
+      children: [
+        Container(
+          height: height,
+          width: width,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/bg-theme.png'),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                Colors.white
+                    .withOpacity(0.9), // Adjust opacity here (0.0 - 1.0)
+                BlendMode.dstATop, // Ensures the overlay blends correctly
               ),
             ),
           ),
-        ],
+          // decoration: BoxDecoration(
+          //   image: DecorationImage(
+          //     image: AssetImage('assets/images/rocket-bg.png'),
+          //     fit: BoxFit.cover,
+          //   ),
+          // ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 50),
+                CircleAvatar(
+                  radius: 60,
+                  backgroundColor: Colors.white,
+                  child: Image.asset('assets/images/edc-logo.png'),
+                ),
+                SizedBox(height: 15),
+                buildHeader("ENTREPRENEURSHIP DEVELOPMENT CELL, VIIT"),
+                Divider(
+                    color: Colors.white,
+                    thickness: 1,
+                    indent: width * 0.1,
+                    endIndent: width * 0.1),
+                SizedBox(height: 20),
+                buildHeader("What makes us EDC?"),
+                SizedBox(height: 20),
+                buildInfoCard(
+                  text:
+                      "The Entrepreneurship Development Cell (EDC) empowers students by bridging academia with industry, fostering entrepreneurship and providing hands-on experience to convert ideas into successful ventures.",
+                ),
+                SizedBox(height: 20),
+                buildHeader("OUR VISION"),
+                SizedBox(height: 10),
+                buildInfoCard(
+                  text:
+                      "The Entrepreneurship Development Cell fosters innovation and cultivates business skills among students, aiming to drive economic growth and contribute to societal progress.",
+                ),
+                SizedBox(height: 20),
+                buildHeader("Latest Updates"),
+                Divider(
+                    color: Colors.white,
+                    thickness: 1,
+                    indent: width * 0.1,
+                    endIndent: width * 0.1),
+                buildHeader("Our Startups"),
+                SizedBox(
+                  height: 400,
+                  width: 350,
+                  child: CardSwiper(
+                    controller: controller,
+                    cardsCount: startup.length,
+                    onSwipe: _onSwipe,
+                    onUndo: _onUndo,
+                    numberOfCardsDisplayed: 3,
+                    backCardOffset: const Offset(30, 0),
+                    padding: const EdgeInsets.fromLTRB(5, 20, 20, 0),
+                    cardBuilder: (
+                      context,
+                      index,
+                      horizontalThresholdPercentage,
+                      verticalThresholdPercentage,
+                    ) =>
+                        StartupCard(startup[index]),
+                  ),
+                ),
+
+                SizedBox(height: 20),
+
+
+                Divider(
+                    color: Colors.white,
+                    thickness: 1,
+                    indent: width * 0.1,
+                    endIndent: width * 0.1),
+                buildHeader("TimeLine"),
+                buildTimeline(),
+                SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Builds a simple styled header text
+  Widget buildHeader(String text) {
+    return Container(
+      color: Colors.transparent,
+      child: Text(
+        text,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
+  /// Builds a reusable information card with background styling
+  Widget buildInfoCard({required String text}) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 15),
+      padding: EdgeInsets.all(15),
+      decoration: Appthemes.ktextBackground,
+      child: Text(
+        text,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 18,
+          fontWeight: FontWeight.normal,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
+  /// Builds a startup card slider (Tinder-style)
+  Widget buildStartupCards(double height, double width) {
+    return SizedBox(
+      height: height * 0.55,
+      child: TinderSwapCard(
+        swipeUp: true,
+        swipeDown: true,
+        orientation: AmassOrientation.bottom,
+        totalNum: startup.length,
+        stackNum: 3,
+        swipeEdge: 4.0,
+        maxWidth: width * 0.97,
+        maxHeight: height * 0.55,
+        minWidth: width * 0.80,
+        minHeight: height * 0.40,
+        cardBuilder: (context, index) {
+          return Card(
+            child: StartupCard(startup[index]),
+          );
+        },
+        cardController: CardController(),
+        swipeCompleteCallback: (CardSwipeOrientation orientation, int index) {},
+      ),
+    );
+  }
+
+  /// Builds a dynamic timeline
+  Widget buildTimeline() {
+    return Column(
+      children: List.generate(
+        timelineData.length,
+        (index) => MyTimelineTile(
+          isFirst: index == 0,
+          isLast: index == timelineData.length - 1,
+          isPast: index < timelineData.length / 2,
+          isicon: Icons.done,
+          isstart: YearCard(year: timelineData[index].year),
+          isend: EventCard(
+            Title: timelineData[index].Title,
+            Subtitle: timelineData[index].Subtitle,
+          ),
+        ),
       ),
     );
   }

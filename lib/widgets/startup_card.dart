@@ -14,7 +14,7 @@ class StartupCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 400,
-      width: 300,
+      width: 400,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),

@@ -62,7 +62,6 @@ class Appthemes {
     borderRadius: BorderRadius.circular(10.0),
   );
 
-
   //------------------------ newsletter theme -------------------------------//
   static final lightTheme = ThemeData(
     useMaterial3: true,
@@ -75,5 +74,19 @@ class Appthemes {
     scaffoldBackgroundColor: Colors.deepPurple[50]!,
   );
 
-    
+  //------------------- vp theme --------------------//
+  static final kGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [
+      Color.fromARGB(255, 0, 0, 0),
+      Color(0xff6463b1),
+
+      // Color.fromARGB(255, 65, 32, 57),
+      // Color.fromARGB(255, 32, 32, 52),
+      // Color.fromARGB(255, 29, 51, 86),
+      // Color(0xff6463b1)
+    ],
+    //
+  );
 }

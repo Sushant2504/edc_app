@@ -6,26 +6,33 @@ import '../models/startup_model.dart';
 class EventCard extends StatelessWidget {
   final List<String> Title;
   final List<String> Subtitle;
-  final int total;
 
-  EventCard({required this.Title, required this.Subtitle, required this.total});
+
+  EventCard({required this.Title, required this.Subtitle});
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Container(
-      margin: const EdgeInsets.all(5),
-      // padding: const EdgeInsets.all(25),
-      height: height * 0.3,
-      width: 400,
+              margin: const EdgeInsets.all(5),
+              // padding: const EdgeInsets.all(25),
+              height: height * 0.22,
+              width: 400,
 
-      decoration: Appthemes.keventCard,
+              decoration: Appthemes.keventCard,
 
-      child: Column(
-         
-      ),
-    );
+              child: ListView.builder(
+                itemCount: Title.length,
+                itemBuilder: (context, index) {
+                   return Padding(
+                     padding: const EdgeInsets.all(8.0),
+                     child: TextContainer(Title, Subtitle, height, width, index),
+                   );
+                },
+                
+              ),
+         );
   }
 }
 

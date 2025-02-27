@@ -3,9 +3,6 @@ import 'package:edc_app/models/article.dart';
 import 'package:edc_app/widgets/article_screen.dart';
 import 'package:edc_app/widgets/animated_background.dart';
 import 'package:edc_app/widgets/article_card.dart';
-
-
-
 class NewsletterScreen extends StatefulWidget {
     
     @override
