@@ -23,11 +23,8 @@ class _NewsletterScreenState extends State<NewsletterScreen> {
         backgroundColor: Colors.transparent,
         flexibleSpace: Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.deepPurple.shade700, Colors.purple.shade400],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+            Color:
+          
           ),
         ),
       ),
