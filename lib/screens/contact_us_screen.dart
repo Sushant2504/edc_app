@@ -1,17 +1,15 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:edc_app/widgets/animated_card.dart';
 import 'package:edc_app/widgets/feedback_form.dart';
 
 class ContactUsScreen extends StatefulWidget {
-    
-    @override
-    _ContactUsScreenState createState() => _ContactUsScreenState();
+  @override
+  _ContactUsScreenState createState() => _ContactUsScreenState();
 }
 
 class _ContactUsScreenState extends State<ContactUsScreen> {
-    bool _showForm = false;
+  bool _showForm = false;
 
   // Method to toggle the visibility of the form
   void _toggleForm() {
@@ -40,26 +38,36 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
-        
         children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                AnimatedCard(),
-                SizedBox(height: screenHeight * 0.05), // Adjusted spacing based on screen height
-                ElevatedButton(
-                  onPressed: _toggleForm,
-                  child: Text("Feedback"),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFFF5900),
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    minimumSize: Size(buttonWidth, buttonHeight), // Adjusted size
-                  ),
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/rocket-bg.png'),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.white.withOpacity(0.9), // Adjust opacity here (0.0 - 1.0)
+                  BlendMode.dstATop, // Ensures the overlay blends correctly
                 ),
-              ],
+              ),
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  AnimatedCard(),
+                  SizedBox(height: screenHeight * 0.05), // Adjusted spacing based on screen height
+                  ElevatedButton(
+                    onPressed: _toggleForm,
+                    child: Text("Feedback"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      minimumSize: Size(buttonWidth, buttonHeight), // Adjusted size
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           if (_showForm)
@@ -69,7 +77,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                 filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                 child: AnimatedOpacity(
                   opacity: _showForm ? 1.0 : 0.0,
-                  duration: Duration(milliseconds: 300),
+                  duration: Duration(milliseconds: 1),
                   child: Center(
                     child: GestureDetector(
                       onTap: () {}, // Prevent taps inside the form from closing it
