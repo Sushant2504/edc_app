@@ -30,6 +30,8 @@ class _NewsletterScreenState extends State<NewsletterScreen> {
                 article: articles[index],
                 onLike: (id) {
                   // Implement like functionality
+
+                  
                 },
                 onTap: (id) {
                   Navigator.push(

@@ -22,6 +22,20 @@ class Article {
     required this.likesCount,
     required this.commentsCount,
   });
+
+  Map<String, dynamic> ToMap() {
+    return {
+      'id': id,
+      'title': title,
+      'excerpt': excerpt,
+      'content': content,
+      'imageUrl': imageUrl,
+      'author': author,
+    };
+  }
+
+  
+
 }
 
 

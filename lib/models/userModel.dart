@@ -20,7 +20,7 @@ class Usermodel {
 
 
   // method to convert user model to json format for storage purpose....
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
      return {
        'id': id,
        'fullName': fullName,
@@ -30,4 +30,21 @@ class Usermodel {
        'college': college,
      };
   }
+
+
+  // reconvert this code to back to dart for usage purpose ....
+  factory Usermodel.fromMap(Map<String, dynamic> map, String ticketId) {
+    return Usermodel(
+      id: map['id'],
+      fullName: map['fullName'],
+      email: map['email'],
+      password: map['password'],
+      phoneNo: map['phoneNo'],
+      college: map['college'],
+    );
+
+    
+  }
+
+
 }
