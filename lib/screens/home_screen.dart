@@ -143,7 +143,7 @@ class HomeContentScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 buildHeader("Latest Updates"),
-                Divider(
+                Divider( 
                     color: Colors.white,
                     thickness: 1,
                     indent: width * 0.1,
@@ -223,6 +223,8 @@ class HomeContentScreen extends StatelessWidget {
     );
   }
 
+  
+
   /// Builds a startup card slider (Tinder-style)
   Widget buildStartupCards(double height, double width) {
     return SizedBox(
@@ -248,6 +250,8 @@ class HomeContentScreen extends StatelessWidget {
       ),
     );
   }
+
+
 
   /// Builds a dynamic timeline
   Widget buildTimeline() {

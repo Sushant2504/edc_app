@@ -8,6 +8,9 @@ class StartupModel {
     required this.description,
     required this.startupimage, // Make sure the type matches
   });
+
+
+  
 }
 
 final List<StartupModel> startup = [

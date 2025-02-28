@@ -16,7 +16,7 @@ class _NavigationState extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -69,10 +69,10 @@ class _NavigationState extends State<Navigation> {
           ),
         ),
         body: TabBarView(
-          children: [
+          children: [ 
             Center(child: VPScreen()),
             Center(child: GuestScreen()),
-            Center(child: GalleryScreen()),  
+            const Center(child: GalleryScreen()),  
             Center(child: TicketBooking()), 
           ],
         ),

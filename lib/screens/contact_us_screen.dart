@@ -71,7 +71,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                   duration: Duration(milliseconds: 300),
                   child: Center(
                     child: GestureDetector(
-                      onTap: () {}, // Prevent taps inside the form from closing it
+                      onTap: () {
+                          
+                      }, // Prevent taps inside the form from closing it
                       child: FeedbackForm(
                         onBackPressed: _closeForm, // Close the form when back button is clicked
                       ),
